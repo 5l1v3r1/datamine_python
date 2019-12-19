@@ -596,3 +596,28 @@ class DatamineCon(object):
         self.get_catalog('SOFRSR')
         self.sofrstriprates_DF = self.load_dataset('SOFRSR', download=download)
 
+    def sofrois_load(self, download=True):
+        """This function loads SOFR OIS Index
+
+        This includes downloading any data avaliable in your catalog into the
+        /SOFR directory of the path variable set upon creating of the
+        connection.  It then loads and structures your local data into
+        into a pandas DataFrame.
+        SEE: https://www.cmegroup.com/market-data/faq-sofr-third-party-data.html
+        Parameters
+        ----------
+        :param download: Attempt to download any
+        data avaliable before loading data from local disk.
+        :type download: bool.
+
+        Creates
+        -------
+        :creates: pandas.DataFrame object.sofrois_DF
+
+        Returns
+        -------
+        :returns:  DF
+        """
+
+        #self.download_data('SOFR')
+        self.sofrois_DF = self.load_dataset('SOFR', download=download)
