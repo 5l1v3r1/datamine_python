@@ -86,7 +86,9 @@ all items in your catalog.
 |  Eris PAI                     | Market Analytics | ERIS  |
 |  SSTL INT Settlements         | Price         | STL  |
 |  SOFR Strip Rates             | Price         | SOFRSR  |
-|  SOFR OIS Index               | Index         | SOFRSR  |
+|  SOFR OIS Index               | Index         | SOFR  |
+|  Premium FX                   | Price         | FX |
+
 
 
 ### Third Party Data
