@@ -51,7 +51,6 @@ class DatamineCon(object):
 
         datamine.debug = True # turn on debug logging
     """
-    print ('This is a test: REMOVE ME EVENTUALLY!!')
     
     debug = False
 
