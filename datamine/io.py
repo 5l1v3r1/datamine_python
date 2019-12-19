@@ -52,7 +52,7 @@ class DatamineCon(object):
         datamine.debug = True # turn on debug logging
     """
     
-    debug = False
+    debug = False 
 
     def __init__(self, path='./', username=None, password=None,
                  url=DEFAULT_URL, threads=MAX_WORKERS):
@@ -114,6 +114,9 @@ class DatamineCon(object):
             try:
                 filename = cgi.parse_header(header)[1]['filename']
             except Exception:
+                if debug: 
+                    print ('File Handling Area, looking for Content-Disposition Header and Lacks a Header...')
+                    print (supplied_url, params)
                 raise RequestError('Expected a "filename" entry in the Content-Disposition header found:\n  {}'.format(header))
                              
             dest_path = os.path.join(self.path, record['dataset'])
@@ -646,15 +649,13 @@ class DatamineCon(object):
         :returns:  DF
         """
         
-        ## TODO TEST This Function when enabled for data
-        self.download_data('EOD')
-        #self.eod_DF = self.load_dataset('SOFR', download=download)
+        self.eod_DF = self.load_dataset('EOD', download=download)
 
     def voi_load(self, download=True):
-        """This function loads CME End of Data Complete Data
+        """This function loads CME Volume and Open Interest Data
 
         This includes downloading any data avaliable in your catalog into the
-        /EOD directory of the path variable set upon creating of the
+        /VOI directory of the path variable set upon creating of the
         connection.  It then loads and structures your local data into
         into a pandas DataFrame.
         SEE: https://www.cmegroup.com/confluence/display/EPICSANDBOX/Volume+and+Open+Interest
@@ -666,13 +667,42 @@ class DatamineCon(object):
 
         Creates
         -------
-        :creates: pandas.DataFrame object.eod_DF
+        :creates: pandas.DataFrame object.voi_DF
 
         Returns
         -------
         :returns:  DF
         """
         
-        ## TODO Develop the loader for This Function
-        #self.download_data('VOI')
+
         self.voi_DF = self.load_dataset('VOI', download=download)
+
+
+    def fx_load(self, download=True):
+        """This function loads FX Premium Data
+
+        This includes downloading any data avaliable in your catalog into the
+        /FX directory of the path variable set upon creating of the
+        connection.  It then loads and structures your local data into
+        into a pandas DataFrame.
+
+        Warning: These are large files when uncompressed.
+        
+        SEE: https://www.cmegroup.com/confluence/display/EPICSANDBOX/Premium+FX+Feed+Historical+Data
+        Parameters
+        ----------
+        :param download: Attempt to download any
+        data avaliable before loading data from local disk.
+        :type download: bool.
+
+        Creates
+        -------
+        :creates: pandas.DataFrame object.voi_DF
+
+        Returns
+        -------
+        :returns:  DF
+        """
+        
+        #self.download_data('FX')
+        self.fx_DF = self.load_dataset('FX', download=download)

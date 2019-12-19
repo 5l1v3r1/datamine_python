@@ -78,6 +78,8 @@ all items in your catalog.
 |  CME Time and Sales           | Price         | TICK     |
 |  CME  Market Depth MBO        | Price         | MBO  |
 |  CME CF Crypto Currency       | Index         | CRYPTOCURRENCY  |
+|  CME Volume and Open Interest       | Market Analytics         | VOI  |
+|  CME End of Day Summary      | Market Analytics         | EOD  |
 |  BrokerTec Top of Book        | Price         | NEXBROKERTECTOB  |
 |  BrokerTec Depth of Book      | Price         | NEXBROKERTECDOB  |
 |  BrokerTec Full Book          | Price         | NEXBROKERTECFOB  |
