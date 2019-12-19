@@ -619,4 +619,60 @@ class DatamineCon(object):
         """
 
         #self.download_data('SOFR')
-        self.sofrois_DF = self.load_dataset('SOFR', download=download)
+        self.sofrois_DF = self.load_dataset('EOD', download=download)
+
+
+
+    def eod_load(self, download=True):
+        """This function loads CME End of Data Complete Data
+
+        This includes downloading any data avaliable in your catalog into the
+        /EOD directory of the path variable set upon creating of the
+        connection.  It then loads and structures your local data into
+        into a pandas DataFrame.
+        SEE: https://www.cmegroup.com/confluence/display/EPICSANDBOX/End+of+Day
+        Parameters
+        ----------
+        :param download: Attempt to download any
+        data avaliable before loading data from local disk.
+        :type download: bool.
+
+        Creates
+        -------
+        :creates: pandas.DataFrame object.eod_DF
+
+        Returns
+        -------
+        :returns:  DF
+        """
+        
+        ## TODO TEST This Function when enabled for data
+        self.download_data('EOD')
+        #self.eod_DF = self.load_dataset('SOFR', download=download)
+
+    def voi_load(self, download=True):
+        """This function loads CME End of Data Complete Data
+
+        This includes downloading any data avaliable in your catalog into the
+        /EOD directory of the path variable set upon creating of the
+        connection.  It then loads and structures your local data into
+        into a pandas DataFrame.
+        SEE: https://www.cmegroup.com/confluence/display/EPICSANDBOX/Volume+and+Open+Interest
+        Parameters
+        ----------
+        :param download: Attempt to download any
+        data avaliable before loading data from local disk.
+        :type download: bool.
+
+        Creates
+        -------
+        :creates: pandas.DataFrame object.eod_DF
+
+        Returns
+        -------
+        :returns:  DF
+        """
+        
+        ## TODO Develop the loader for This Function
+        #self.download_data('VOI')
+        self.voi_DF = self.load_dataset('VOI', download=download)
