@@ -1,7 +1,5 @@
 from . import Loader
 
-#TODO Need to properly type the columns. There are a lot of columns!
-
 class OneQBitLoader(Loader):
     dataset = '1QBIT'
     fileglob = '1QBit_*.csv'

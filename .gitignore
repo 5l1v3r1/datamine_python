@@ -65,3 +65,5 @@ screenshots/
 # npm
 package-lock.json
 
+data
+settings.json

@@ -51,7 +51,8 @@ class DatamineCon(object):
 
         datamine.debug = True # turn on debug logging
     """
-
+    print ('This is a test: REMOVE ME EVENTUALLY!!')
+    
     debug = False
 
     def __init__(self, path='./', username=None, password=None,
@@ -115,6 +116,7 @@ class DatamineCon(object):
                 filename = cgi.parse_header(header)[1]['filename']
             except Exception:
                 raise RequestError('Expected a "filename" entry in the Content-Disposition header found:\n  {}'.format(header))
+                             
             dest_path = os.path.join(self.path, record['dataset'])
             if not os.path.exists(dest_path):
                 os.makedirs(dest_path)
@@ -566,3 +568,31 @@ class DatamineCon(object):
         """
         if download:
             self.download_data('NEXBROKERTECFOB')
+
+    def sofrstriprates_load(self, download=True):
+        """This function loads SOFR strip rates
+
+        This includes downloading any data avaliable in your catalog into the
+        /SOFRSR directory of the path variable set upon creating of the
+        connection.  It then loads and structures your local data into
+        into a pandas DataFrame.
+        SEE: https://www.cmegroup.com/confluence/display/EPICSANDBOX/SOFR+Strip+Rates
+        Parameters
+        ----------
+        :param download: Attempt to download any
+        data avaliable before loading data from local disk.
+        :type download: bool.
+
+        Creates
+        -------
+        :creates: pandas.DataFrame object.sofrstriprates_DF
+
+        Returns
+        -------
+        :returns:  DF
+        """
+
+        #self.download_data('SOFRSR')
+        self.get_catalog('SOFRSR')
+        self.sofrstriprates_DF = self.load_dataset('SOFRSR', download=download)
+
