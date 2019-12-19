@@ -83,6 +83,7 @@ all items in your catalog.
 |  BrokerTec Full Book         | Price         | NEXBROKERTECFOB  |
 |  Eris PAI                     | Market Analytics | ERIS  |
 |  SSTL INT Settlements         | Price         | STL  |
+|  SOFR Strip Rates         | Price         | SOFRSR  |
 
 
 
