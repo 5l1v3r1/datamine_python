@@ -114,9 +114,9 @@ class DatamineCon(object):
             try:
                 filename = cgi.parse_header(header)[1]['filename']
             except Exception:
-                if debug: 
-                    print ('File Handling Area, looking for Content-Disposition Header and Lacks a Header...')
-                    print (supplied_url, params)
+                
+                print ('''File Handling Area, looking for Content-Disposition Header and Lacks a 'header'...''')
+                print (supplied_url, params)
                 raise RequestError('Expected a "filename" entry in the Content-Disposition header found:\n  {}'.format(header))
                              
             dest_path = os.path.join(self.path, record['dataset'])
@@ -571,7 +571,7 @@ class DatamineCon(object):
         if download:
             self.download_data('NEXBROKERTECFOB')
 
-    def sofrstriprates_load(self, download=True):
+    def sofrstriprates_load(self, oreint='long', download=True):
         """This function loads SOFR strip rates
 
         This includes downloading any data avaliable in your catalog into the
@@ -581,6 +581,7 @@ class DatamineCon(object):
         SEE: https://www.cmegroup.com/confluence/display/EPICSANDBOX/SOFR+Strip+Rates
         Parameters
         ----------
+        :param orient: 'long' keeps data in a long format; 'wide' puts it into wide frame where each contract month is a separate column
         :param download: Attempt to download any
         data avaliable before loading data from local disk.
         :type download: bool.
@@ -595,10 +596,25 @@ class DatamineCon(object):
         """
 
         #self.download_data('SOFRSR')
-        self.get_catalog('SOFRSR')
-        self.sofrstriprates_DF = self.load_dataset('SOFRSR', download=download)
+        #self.get_catalog('SOFRSR')
 
-    def sofrois_load(self, download=True):
+        
+
+        if oreint == 'wide':
+            
+            self.sofrstriprates_DF = self.load_dataset('SOFRSR', 
+                                                download=download).pivot(index='businessDate', 
+                                                        columns='Description', values='rate').sort_values('businessDate', ascending=False).reset_index()
+
+            self.sofrstriprates_DF['businessDate'] = self.sofrstriprates_DF['businessDate'].dt.date                                          
+            self.sofrstriprates_DF.set_index('businessDate', inplace=True)
+        else:
+
+            self.sofrstriprates_DF = self.load_dataset('SOFRSR', download=download)
+
+
+
+    def sofrois_load(self,  download=True):
         """This function loads SOFR OIS Index
 
         This includes downloading any data avaliable in your catalog into the
@@ -608,6 +624,7 @@ class DatamineCon(object):
         SEE: https://www.cmegroup.com/market-data/faq-sofr-third-party-data.html
         Parameters
         ----------
+
         :param download: Attempt to download any
         data avaliable before loading data from local disk.
         :type download: bool.
@@ -621,9 +638,9 @@ class DatamineCon(object):
         :returns:  DF
         """
 
-        #self.download_data('SOFR')
-        self.sofrois_DF = self.load_dataset('EOD', download=download)
-
+        self.sofrois_DF = self.load_dataset('SOFR', download=download)
+            
+            
 
 
     def eod_load(self, download=True):

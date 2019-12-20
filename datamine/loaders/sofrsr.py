@@ -9,15 +9,14 @@ class SOFRStripRatesLoader(Loader):
     dataset = 'SOFRSR'
     fileglob = 'SOFR-Term-Rate-Fixings_*.JSON'
 
-    names = ['instrument.productCode', 'instrument.productDescription',
-            'instrument.securityId', 'pointInTime.businessDate', 'rate',
-            'transactionTime']
+    columns = ['rate','transactionTime','businessDate','productCode', 'securityId','Description']
 
-    dtypes = {'category': ('mdEntryCode', 'mdEntryType', 'mdUpdateAction',
-                           'symbol', 'openCloseSettlFlag'),
-              'int64': ('rptSeq',),
-              'float': ('netChgPrevDay', 'netPctChg', 'mdEntryPx'),
-              'date:%Y%m%d_%H:%M:%S.%f': 'mdEntryDateTime'}
+    dtypes = {'category': ('productCode', 'productDescription', 'securityId',
+                           ),
+              'int64': (),
+              'float': ('rate', 'netPctChg'),
+              'date:%m-%d-%Y': ('businessDate',),
+              'date': ('transactionTime')}
 
     def _load(self, filename):
         result = []
